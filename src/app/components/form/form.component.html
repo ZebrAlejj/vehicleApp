@@ -1,0 +1,48 @@
+<h2 class="mt-3">Create Vehicle</h2>
+
+<form [formGroup]="addVehicle" 
+(ngSubmit)="onVehicleSubmit()"
+class="row g-3 needs-validation mt-4">
+    <div class="col-md-6">
+      <label for="vehicleId" class="form-label">Vehicle ID</label>
+      <input type="number" formControlName="id" 
+      class="form-control" id="vehicleId" min=1 max=999 required>
+      <div class="invalid-feedback">
+        Please enter a number.
+      </div>
+    </div>
+    <div class="col-md-6">
+        <label for="type" class="form-label">Type</label>
+        <input type="string" formControlName="type" 
+        class="form-control" id="type" required>
+        <div class="invalid-feedback">
+          Please enter a type.
+        </div>
+    </div>
+    <div class="col-md-6">
+        <label for="manufacturerNameShort" class="form-label">Manufacturer Name Short</label>
+        <input type="string" formControlName="manufacturerNameShort"
+        class="form-control" id="manufacturerNameShort" required>
+        <div class="invalid-feedback">
+          Please enter a name.
+        </div>
+    </div>
+    <div class="col-md-6">
+        <label for="price" class="form-label">Price</label>
+        <div class="input-group mb-3">
+            <span class="input-group-text">$</span>
+            <input type="number" formControlName="price" 
+            class="form-control" id="vehicleId" min="0" step=".01" required>
+        </div>
+        <div class="invalid-feedback">
+          Please enter a number (2 decimals maximun).
+        </div>
+    </div>
+    <div class="col-12">
+      <button class="btn btn-primary" 
+      type="submit"
+      [disabled]="addVehicle.invalid">
+      Add vehicle
+    </button>
+    </div>
+</form>
