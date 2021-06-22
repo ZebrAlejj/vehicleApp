@@ -1,35 +1,72 @@
-<table class="table mt-4" *ngIf="listVehicles.length > 0">
+<!-- Add vehicle -->
+<div class="d-grid">
+  <button [routerLink]="['/form']"
+    type="button" class="btn btn-primary btn-lg mt-4">
+    Add vehicle <i class="bi bi-plus"></i>
+  </button>
+</div>
+
+<!-- Table -->
+<div *ngIf="!isLoading">
+  <table *ngIf="listVehicles.length > 0" class="table mt-4">
     <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
+        <th scope="col">Type</th>
+        <th scope="col">ManufacturerNameShort</th>
+        <th scope="col">Price</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td colspan="2">Larry the Bird</td>
-        <td>@twitter</td>
+      <tr *ngFor="let vehicle of listVehicles">
+        <td>{{vehicle.type}}</td>
+        <td>{{vehicle.manufacturerNameShort}}</td>
+        <td>{{vehicle.price}} $</td>
+        <td>
+          <div class="d-grid gap-2 d-flex justify-content-end"> 
+            <button [routerLink]="['/edit', vehicle.vehicleId]" class="btn btn-success" type="button">
+              <i class="bi bi-pencil-square"></i>
+            </button>
+            <button (click)='setId(vehicle)' type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+              <i class="bi bi-trash-fill"></i>
+            </button>
+          </div>
+        </td>
       </tr>
     </tbody>
-</table>
-
-<div class="mt-4" *ngIf="listVehicles.length == 0">
-  <h2>Don't found any vehicle</h2>
-  <p>Please create a new vehicle</p>
+  </table>
+  <!-- Not vehicles founds -->
+  <div class="mt-4" *ngIf="listVehicles.length == 0">
+    <h2>Don't found any vehicle</h2>
+    <p>Please create a new vehicle</p>
+  </div>
 </div>
 
+<!-- Spinner -->
+<div *ngIf="isLoading" class="d-flex justify-content-center mt-5">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel"> 
+          Do you really want to delelte this vehicle?
+        </h5>
+      </div>
+      <div class="modal-footer">
+        <button (click)="deleteVehicle()" data-bs-dismiss="modal"
+        class="btn btn-danger" type="button">
+          Yes, delete it
+        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          No, miss click
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

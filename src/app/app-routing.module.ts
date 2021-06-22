@@ -13,6 +13,10 @@ const routes: Routes = [
     component: FormComponent
   },
   {
+    path: 'edit/:id',
+    component: FormComponent
+  },
+  {
     path: '**',
     redirectTo:'/home'
   }

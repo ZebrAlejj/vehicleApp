@@ -1,5 +1,5 @@
 export interface Vehicle {
-    id: number,
+    vehicleId?: string,
     type: string,
     manufacturerNameShort: string,
     price: number
